@@ -1,0 +1,32 @@
+<nav
+    *ngIf="breadcrumbs.length"
+    class="hide-on-print mb-2 flex items-center justify-between rounded-md bg-white p-2 text-xs md:flex-row md:gap-1.5 md:whitespace-break-spaces md:text-base lg:text-lg"
+>
+    <h1
+        class="whitespace-pre-line text-sm font-semibold text-[#263065] sm:text-base md:whitespace-nowrap md:text-lg lg:text-xl"
+    >
+        {{ transformLabel(breadcrumbs[1].label) }}
+    </h1>
+    <ol
+        class="flex flex-wrap items-center justify-end gap-1 text-xs md:whitespace-nowrap md:text-sm lg:text-base"
+    >
+        <li
+            class="flex items-center gap-1.5"
+            [ngClass]="{ active: last }"
+            *ngFor="let breadcrumb of breadcrumbs; let last = last"
+        >
+            <a
+                *ngIf="!last; else lastBreadcrumb"
+                [routerLink]="'/' + breadcrumb.url"
+            >
+                {{ transformLabel(breadcrumb.label) }}
+            </a>
+            <ng-template #lastBreadcrumb>
+                <span class="text-gray-500">
+                    {{ transformLabel(breadcrumb.label) }}
+                </span>
+            </ng-template>
+            <i *ngIf="!last" class="fa fa-angle-right"></i>
+        </li>
+    </ol>
+</nav>

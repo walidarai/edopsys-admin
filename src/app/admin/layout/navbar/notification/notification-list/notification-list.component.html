@@ -1,0 +1,41 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="mx-auto rounded-lg bg-white shadow-lg">
+    <div class="bg-blue-600 p-2 text-center text-white">
+        <button class="w-full" (click)="markAllAsRead()">Read All</button>
+    </div>
+    <ul>
+        <li
+            *ngFor="let notification of notifications"
+            class="flex cursor-pointer flex-col gap-4 hover:bg-gray-100"
+        >
+            <details
+                class="flex flex-col gap-4 p-4"
+                (click)="markAsRead(notification)"
+            >
+                <summary class="flex items-center gap-4 p-4">
+                    <span
+                        class="size-4 rounded-full"
+                        [ngClass]="{
+                            'bg-red-500': !notification.read,
+                        }"
+                    ></span>
+                    <img
+                        class="size-10 rounded-full"
+                        src="../../../../../../assets/images/profiles/ProfilePicture.png"
+                        alt="Profile"
+                    />
+                    <div class="flex flex-1 flex-col">
+                        <span>{{ notification.name }}</span>
+                        <span>{{ notification.date }}</span>
+                    </div>
+                    <span class="text-sm text-gray-400">
+                        {{ notification.time }}
+                    </span>
+                </summary>
+                <div *ngIf="notification" class="truncate p-6 pl-24">
+                    {{ notification.message }}
+                </div>
+            </details>
+        </li>
+    </ul>
+</div>

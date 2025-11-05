@@ -1,0 +1,19 @@
+<div class="relative flex min-h-screen w-full flex-col bg-[#f5f5dc]">
+    <app-navbar></app-navbar>
+    <div class="flex grow">
+        <app-sidebar></app-sidebar>
+        <div
+            class="flex flex-1 flex-col"
+            [ngClass]="
+                sidebarCollapsed
+                    ? 'h-full overflow-x-hidden'
+                    : 'scrollbar scrollable-content h-[calc(100vh-4rem)] max-h-screen overflow-y-scroll'
+            "
+        >
+            <div class="flex-grow p-4 lg:max-w-[calc(100vw_-_5.25rem)]">
+                <router-outlet></router-outlet>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

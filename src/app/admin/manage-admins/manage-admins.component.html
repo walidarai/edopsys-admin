@@ -1,0 +1,93 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="flex items-center justify-between gap-4 my-4">
+    <div
+        class="flex gap-2 items-center px-3 py-1.5 outline rounded-md bg-white"
+    >
+        <i class="fa fa-search"></i>
+        <input
+            type="search"
+            name="search"
+            id="search"
+            class="bg-transparent outline-none"
+            placeholder="Search"
+        />
+    </div>
+    <button
+        type="button"
+        button-icon
+        button-outline-primary
+        (click)="toggleModal()"
+    >
+        <i class="fa fa-plus"></i>
+        <span>Add New User</span>
+    </button>
+</div>
+<div class="scrollbar scroll-horizontal min-w-full overflow-x-auto">
+    <table class="w-full border-collapse text-xs sm:text-sm md:text-base">
+        <thead>
+            <tr class="bg-gray-100 text-left">
+                <th class="border px-3 py-2">User</th>
+                <th class="border px-3 py-2">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr
+                *ngFor="let user of adminUsers"
+                class="bg-white even:bg-gray-50"
+            >
+                <td class="whitespace-nowrap border px-3 py-2">
+                    <div class="flex gap-4 items-center">
+                        <!-- <img
+                            [src]="user.photo"
+                            [alt]="user.name"
+                            class="size-8 rounded-full object-cover aspect-square"
+                        /> -->
+                        <div class="flex flex-col gap-0.5">
+                            <span class="font-medium">{{ user.name }}</span>
+                            <a
+                                [href]="'mailto:' + user.email"
+                                class="text-primary hover:underline text-sm"
+                            >
+                                {{ user.email }}
+                            </a>
+                        </div>
+                    </div>
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    <div class="flex gap-4 items-center">
+                        <button
+                            type="button"
+                            button-outline-primary
+                            (click)="toggleModal(user)"
+                        >
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button
+                            type="button"
+                            button-outline-danger
+                            (click)="toggleDeleteModal(user)"
+                        >
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<app-admin-user-edit-modal
+    *ngIf="isVisible"
+    [isVisible]="isVisible"
+    [user]="selectedUser"
+    (handleClose)="toggleModal()"
+    (handleSave)="toggleModal()"
+></app-admin-user-edit-modal>
+
+<app-delete-modal
+    *ngIf="isDeleteVisible"
+    [isDeleteModalVisible]="isDeleteVisible"
+    [deleteModalDetails]="deleteDetails"
+    (closeDeleteModal)="toggleDeleteModal()"
+></app-delete-modal>

@@ -1,0 +1,32 @@
+.bullet::before {
+    content: "";
+    width: 10px;
+    position: absolute;
+    left: 0.25rem;
+    height: 10px;
+    border: 2px solid;
+    border-radius: 10px;
+    top: 14px;
+}
+
+.line::after {
+    content: "";
+    width: 1px;
+    background: #aeadc6;
+    position: absolute;
+    left: 0.55rem;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+.active {
+    svg#AILogo {
+        stroke: #263065;
+    }
+}
+
+:host {
+    position: relative;
+    z-index: 50;
+}

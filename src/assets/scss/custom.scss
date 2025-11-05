@@ -1,0 +1,56 @@
+.scrollbar {
+    &::-webkit-scrollbar {
+        width: 4px;
+        background: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        width: 4px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+.scroll-horizontal {
+    &::-webkit-scrollbar {
+        height: 0.25rem;
+    }
+}
+
+.tabs-container {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid #d1d5db;
+    background-color: #fff;
+    overflow-x: auto;
+}
+
+.tab {
+    padding: 0.5rem 1rem;
+    color: #4a5568;
+    text-decoration: none;
+    display: inline-block;
+    min-width: fit-content;
+
+    &:hover {
+        color: #2b6cb0;
+    }
+
+    &.active {
+        color: #007bff;
+        border-bottom: 2px solid #007bff;
+    }
+}
+
+.icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: currentColor;
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 1.5rem;
+}

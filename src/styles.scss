@@ -1,1 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+@import "assets/scss/custom.scss";
+
+@theme {
+    /* Color Tokens */
+    --color-primary: #263065;
+    --color-teal: #008080;
+    --color-secondary: #2c497f;
+    --color-neutral: #8897bd;
+    --color-light: #e3e4fa;
+    --color-highlight: #e5e7eb;
+
+    /* APP Preview Color Tokens */
+    --color-app-primary: #263065;
+    --color-app-secondary: #99a1af;
+    --color-app-background: #f5f5dc;
+    --color-app-accent: #ffffff;
+    --color-app-highlight: #2b7fff;
+
+    /* Breakpoint Tokens */
+    --screen-xs: 200px;
+    --screen-sm: 500px;
+    --screen-md: 768px;
+    --screen-lg: 1024px;
+    --screen-xl: 1280px;
+    --screen-2xl: 1536px;
+}
+
+@layer base {
+    button,
+    a {
+        @apply cursor-pointer;
+    }
+}
+
+*:not([class*="border-"]) {
+    border-color: var(--color-highlight);
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.pace {
+    -webkit-pointer-events: none;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pace .pace-progress {
+    background: #263065;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    width: 100%;
+    right: 100%;
+    height: 4px;
+}
+
+.pace-inactive {
+    display: none;
+}
+
+@media print {
+    .hide-on-print {
+        display: none !important;
+    }
+}
+
+details:last-of-type summary::-webkit-details-marker {
+    display: none;
+}

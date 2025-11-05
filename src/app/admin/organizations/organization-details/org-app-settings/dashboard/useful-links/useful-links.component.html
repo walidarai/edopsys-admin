@@ -1,0 +1,61 @@
+<div class="mb-5 rounded-lg bg-white shadow-sm">
+    <div
+        class="flex items-center justify-between border-b border-highlight p-3"
+    >
+        <h3 class="text-lg font-semibold">Useful Links</h3>
+        <button class="font-semibold text-app-highlight">+ Add Link</button>
+    </div>
+
+    <ul
+        class="scrollbar flex max-h-80 flex-col gap-2 overflow-y-scroll px-3 py-2"
+    >
+        <li
+            *ngFor="let link of links"
+            class="flex justify-between border-b border-highlight py-2"
+        >
+            <div class="flex flex-col gap-2">
+                <span class="font-semibold">
+                    {{ link.title }}
+                </span>
+                <a
+                    class="text-app-highlight hover:underline"
+                    [href]="link.url"
+                    target="_blank"
+                >
+                    {{ link.url }}
+                </a>
+            </div>
+            <details class="relative">
+                <summary class="appearance-none marker:content-none">
+                    <i class="fa fa-bars"></i>
+                </summary>
+                <ul class="absolute right-full top-full w-40 shadow-md">
+                    <li
+                        class="flex cursor-pointer items-center gap-2 px-2 py-1 bg-white hover:bg-gray-100"
+                    >
+                        <i></i>
+                        <span>Edit</span>
+                    </li>
+                    <li
+                        class="flex cursor-pointer items-center gap-2 px-2 py-1 bg-white hover:bg-gray-100"
+                    >
+                        <i></i>
+                        <span>Delete</span>
+                    </li>
+                    <li
+                        class="flex cursor-pointer items-center gap-2 px-2 py-1 bg-white hover:bg-gray-100"
+                    >
+                        <i></i>
+                        <span>Move down</span>
+                    </li>
+                    <li
+                        class="flex cursor-pointer items-center gap-2 px-2 py-1 bg-white hover:bg-gray-100"
+                    >
+                        <i></i>
+                        <span>Move to Bottom</span>
+                    </li>
+                </ul>
+            </details>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,43 @@
+<app-shared-modal
+    [isVisible]="isDeleteModalVisible"
+    [hasHeader]="false"
+    customStyle="!w-96"
+    (close)="deleteToggle()"
+>
+    <div
+        class="modal-body flex flex-col items-center justify-center gap-3 text-center"
+        [ngClass]="customStyle"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 70 70"
+            width="100"
+            height="100"
+            class="text-yellow-500"
+        >
+            <g fill="none" stroke="#F8D57E" stroke-width="4.5" stroke-linejoin="round">
+                <path d="M32 4 L4 56 H60 L32 4 Z" />
+            </g>
+            <g fill="#F8D57E">
+                <circle cx="32" cy="48" r="3" />
+                <rect
+                    x="29.5"
+                    y="21"
+                    width="5.5"
+                    height="19"
+                    rx="2"
+                    ry="5"
+                    stroke-linejoin="round"
+                />
+            </g>
+        </svg>
+        <span class="text-xl">{{ deleteModalDetails.title }}</span>
+        <span>{{ deleteModalDetails.description }}</span>
+    </div>
+    <div class="modal-footer flex flex-row items-center justify-center gap-3">
+        <button (click)="deleteToggle()" button-hover-outline-neutral>Cancel</button>
+        <button (click)="deleteItem()" button-danger>
+            {{ deleteButton }}
+        </button>
+    </div>
+</app-shared-modal>

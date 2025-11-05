@@ -1,0 +1,48 @@
+<li class="relative" [appDropdown]="dropdownMenu" #dropdown="appDropdown">
+    <button
+        class="cursor-pointer overflow-hidden rounded-full border border-gray-300 focus:outline-none"
+        type="button"
+        id="profileDropdown"
+    >
+        <img
+            src="https://images.squarespace-cdn.com/content/v1/5cf0d08d5fc69d000172462a/1706733936056-GI8OO7J4EIOQZ1U9COQY/Cillian+LinkedIn+Headshot+London.jpg?format=750w"
+            class="size-10 lg:size-12"
+        />
+    </button>
+    <div
+        #dropdownMenu
+        [class.hidden]="!dropdown.isOpen"
+        class="dropdown-menu-right absolute right-0 mt-2 min-w-[220px] max-w-[350px] rounded-lg border border-gray-200 bg-white p-3 shadow-lg"
+        aria-labelledby="profileDropdown"
+    >
+        <a class="flex items-center gap-2 p-2 hover:bg-gray-100">
+            <i class="fa fa-user"></i>
+            <span>My Account</span>
+        </a>
+        <a
+            class="flex items-center gap-2 p-2 hover:bg-gray-100"
+            fragment="inbox"
+        >
+            <i class="fa fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        <div class="my-2 border-t border-gray-200"></div>
+        <a
+            href="https://www.araiinfotech.com/contact-us"
+            target="_blank"
+            class="flex items-center gap-2 p-2 hover:bg-gray-100"
+        >
+            <i class="fa fa-question-circle"></i>
+            <span>Help Center</span>
+        </a>
+        <a class="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-100">
+            <i class="fa fa-phone"></i>
+            <span>Contact Admin</span>
+        </a>
+        <div class="my-2 border-t border-gray-200"></div>
+        <a class="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-100">
+            <i class="fa fa-sign-out"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</li>

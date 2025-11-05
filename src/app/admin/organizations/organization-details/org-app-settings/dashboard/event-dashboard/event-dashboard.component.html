@@ -1,0 +1,106 @@
+<div class="flex max-h-[38rem] flex-col rounded-lg bg-white shadow-md">
+    <div
+        class="flex items-center justify-between border-b border-highlight p-3"
+    >
+        <h3 class="text-lg font-semibold">Events</h3>
+        <a button-icon button-primary routerLink="/app/events/create-edit">
+            <i class="fa fa-plus"></i><span>Create Event</span>
+        </a>
+    </div>
+
+    <div
+        class="scrollbar mr-1.5 flex max-h-[40rem] flex-grow flex-col gap-2.5 overflow-y-auto px-3 py-5"
+    >
+        <div
+            class="flex flex-col gap-2.5 border-b border-highlight pb-3"
+            *ngFor="let event of events"
+        >
+            <div class="flex items-center justify-between">
+                <h4 class="truncate text-lg text-app-highlight">
+                    {{ event.title }}
+                </h4>
+
+                <details class="relative">
+                    <summary
+                        class="flex cursor-pointer items-center text-lg text-gray-500"
+                    >
+                        <i class="fa fa-bars"></i>
+                    </summary>
+                    <div
+                        class="absolute right-0 top-full z-10 w-full gap-2 rounded-lg bg-white shadow-lg sm:w-auto"
+                    >
+                        <a
+                            class="flex cursor-pointer items-center px-4 py-2 text-black hover:bg-gray-100"
+                            >Edit</a
+                        >
+                        <a
+                            class="flex cursor-pointer items-center px-4 py-2 text-black hover:bg-gray-100"
+                            >Delete</a
+                        >
+                    </div>
+                </details>
+            </div>
+
+            <div class="flex flex-col gap-1.5 text-sm text-gray-500">
+                <span>
+                    <i class="fa fa-calendar-alt"></i> Starts
+                    {{ event.startDate }} |
+                    <i class="fa fa-map-marker-alt"></i> {{ event.location }}
+                </span>
+
+                <a class="text-app-highlight hover:underline">
+                    <i class="fa fa-download"></i> Calendar invitation
+                </a>
+
+                <span>
+                    <i class="fa fa-users"></i> People going:
+                    {{ event.peopleGoing }}
+                </span>
+            </div>
+
+            <div class="flex flex-col gap-2.5 sm:flex-row">
+                <img
+                    class="aspect-square size-24 rounded-lg object-cover"
+                    [src]="event.image"
+                    alt="Event Image"
+                />
+                <p class="line-clamp-3 text-sm text-gray-700">
+                    {{ event.description }}
+                </p>
+            </div>
+
+            <button
+                class="w-fit rounded px-3 py-1 text-white"
+                [ngClass]="
+                    event.attending
+                        ? 'bg-red-500 hover:bg-red-700'
+                        : 'bg-app-text-app-highlight hover:bg-blue-700'
+                "
+                (click)="toggleAttendance(event.id)"
+            >
+                {{ event.attending ? "Leave" : "Attend" }}
+            </button>
+
+            <div
+                class="flex items-center justify-between text-sm text-gray-500"
+            >
+                <span>
+                    <i class="fa fa-comment"></i> {{ event.comments }} Comments
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="fa fa-plus"></i>
+                    <i class="fa fa-comments"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-t border-highlight p-3 text-center">
+        <button
+            class="font-bold text-app-highlight hover:text-blue-700"
+            routerLink="/app/events"
+        >
+            View All
+        </button>
+    </div>
+</div>

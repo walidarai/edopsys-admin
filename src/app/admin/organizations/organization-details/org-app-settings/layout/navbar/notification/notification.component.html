@@ -1,0 +1,51 @@
+<li class="relative" [appDropdown]="dropdownMenu" #dropdown="appDropdown">
+    <button
+        type="button"
+        class="relative focus:outline-none"
+        id="dropdownMenuButton"
+    >
+        <i class="fa fa-bell-o text-lg text-gray-600"></i>
+        <span
+            class="pulse-css !bg-green-400 before:!bg-green-400 after:!bg-green-400"
+        ></span>
+    </button>
+
+    <div
+        #dropdownMenu
+        [class.hidden]="!dropdown.isOpen"
+        class="absolute -right-20 z-50 mt-2 hidden w-[21.875rem] overflow-hidden rounded-lg border-b border-gray-200 bg-white shadow-lg md:right-0"
+        aria-labelledby="dropdownMenuButton"
+    >
+        <ul class="list-none">
+            <a *ngFor="let item of notifications" class="block no-underline">
+                <li class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100">
+                    <span
+                        class="flex size-10 items-center justify-center rounded-full"
+                        [ngClass]="[item.iconColor, item.iconTextColor]"
+                    >
+                        <i class="fa" [ngClass]="[item.icon]"></i>
+                    </span>
+                    <div class="flex-1 text-gray-800">
+                        <span
+                            class="text-ellipsis whitespace-normal break-words text-base font-medium"
+                        >
+                            <strong>{{ item.name }}</strong>
+                            {{ item.action }}
+                        </span>
+                    </div>
+                    <span class="whitespace-nowrap text-sm text-gray-500">
+                        {{ item.time }}
+                    </span>
+                </li>
+            </a>
+        </ul>
+        <div
+            class="border-t border-gray-200 py-3 text-center text-app-highlight hover:underline"
+        >
+            <a>
+                See All Notifications
+                <i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</li>

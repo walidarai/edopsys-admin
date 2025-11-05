@@ -1,0 +1,34 @@
+<div
+    *ngIf="isVisible"
+    class="fixed inset-0 z-50 flex items-end justify-end bg-slate-50/50"
+>
+    <div
+        class="relative flex h-full max-h-full w-full max-w-4xl transform flex-col rounded-l-lg bg-white shadow-xl transition-transform"
+        [ngClass]="isVisible ? 'translate-x-0' : 'translate-x-full'"
+    >
+        <div
+            class="flex items-center justify-between border-b border-gray-300 p-4 text-lg font-semibold"
+        >
+            <ng-content select="[drawerHeader]"></ng-content>
+            <button
+                (click)="closeDrawer()"
+                class="text-gray-400 hover:text-gray-600 focus:outline-none"
+            >
+                <span class="sr-only">Close</span>
+                <div class="fa fa-times text-lg"></div>
+            </button>
+        </div>
+
+        <div class="scrollbar flex-grow overflow-y-auto p-4">
+            <ng-content select="[drawerBody]"></ng-content>
+        </div>
+
+        <div
+            #drawerFooter
+            *ngIf="hasFooter"
+            class="border-t border-gray-300 p-4"
+        >
+            <ng-content select="[drawerFooter]"></ng-content>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div
+    class="flex min-h-screen w-full flex-col bg-app-background mb-20"
+    [ngClass]="{
+        'fixed left-0 top-0 right-0 bottom-0 z-[999]': preview === 'expand',
+        relative: preview === 'compress'
+    }"
+>
+    <app-navbar></app-navbar>
+    <div class="flex grow">
+        <app-sidebar></app-sidebar>
+        <div
+            class="flex flex-1 flex-col"
+            [ngClass]="
+                sidebarCollapsed
+                    ? 'h-full overflow-x-hidden'
+                    : 'scrollbar scrollable-content h-[calc(100vh-4rem)] max-h-screen overflow-y-scroll'
+            "
+        >
+            <div class="flex-grow p-4 lg:max-w-[calc(100vw_-_5.25rem)]">
+                <app-dashboard></app-dashboard>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>
+
+<div
+    #theme
+    class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[9999] p-2 bg-gray-700/85 rounded-lg flex flex-col lg:flex-row gap-2 items-center text-white font-medium"
+>
+    <div class="flex items-center gap-2 flex-wrap lg:flex-nowrap">
+        <div
+            class="cursor-pointer relative p-4 rounded w-30 text-center hover:ring-2 hover:ring-white active:ring-0"
+            [ngStyle]="{
+                'background-color': color.value,
+                color: getContrastColor(color.value)
+            }"
+            *ngFor="let color of colors | keyvalue : keepOrder"
+            (click)="handleColorPicker(color.key)"
+        >
+            <div
+                class="absolute bottom-20 left-1/2 -translate-x-1/2 z-50"
+                *ngIf="selectedPicker === color.key"
+                (click)="stopPropagation($event)"
+            >
+                <color-sketch
+                    [color]="colors[color.key]"
+                    (onChangeComplete)="onColorChange($event, color.key)"
+                ></color-sketch>
+            </div>
+            {{ color.key | titlecase }}
+        </div>
+    </div>
+    <hr class="h-10 ring ring-white/80 mx-1 hidden lg:block" />
+    <div class="flex items-center gap-2">
+        <label
+            [for]="image.key"
+            class="cursor-pointer relative p-4 rounded w-20 text-center ring ring-white hover:ring-2 active:ring-1"
+            *ngFor="let image of images | keyvalue"
+        >
+            {{ image.key | titlecase }}
+            <input
+                [id]="image.key"
+                type="file"
+                class="hidden"
+                (change)="onFileSelected($event, image.key)"
+            />
+        </label>
+        <hr class="h-10 ring ring-white/80 mx-1" />
+        <button
+            type="button"
+            class="p-4 ring ring-white hover:ring-2 active:ring-1"
+            (click)="
+                handlePreviewToggle(
+                    preview === 'expand' ? 'compress' : 'expand'
+                )
+            "
+        >
+            <i
+                class="fa"
+                [ngClass]="preview === 'expand' ? 'fa-compress' : 'fa-expand'"
+            ></i>
+        </button>
+        <button
+            type="button"
+            class="p-4 ring ring-white hover:ring-2 active:ring-1"
+            (click)="resetTheme()"
+        >
+            <i class="fa fa-rotate-right"></i>
+        </button>
+    </div>
+</div>

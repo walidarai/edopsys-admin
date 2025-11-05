@@ -1,0 +1,43 @@
+<div *ngIf="isVisible" class="fixed inset-0 z-50 flex items-center justify-center">
+    <div class="fixed inset-0 bg-gray-500/75" (click)="onBackdropClick($event)"></div>
+    <div
+        class="relative flex transform flex-col overflow-y-hidden rounded-lg bg-white shadow-xl transition-all m-4"
+        [ngClass]="[
+            customStyle,
+            fullScreen
+                ? 'z-[999] max-h-full min-h-full min-w-full max-w-full'
+                : 'max-h-[80vh] w-full max-w-lg',
+        ]"
+    >
+        <div
+            class="flex items-center justify-between gap-4 border-b border-highlight p-4 text-lg font-semibold"
+            *ngIf="hasHeader"
+        >
+            <ng-content select=".modal-header"></ng-content>
+            <button
+                (click)="closeModal()"
+                class="text-gray-400 hover:text-gray-600 focus:outline-none"
+            >
+                <span class="sr-only">Close</span>
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                </svg>
+            </button>
+        </div>
+        <div
+            class="scrollbar overflow-y-scroll p-4 grow"
+            #scrollableContent
+            (scroll)="onScroll(scrollableContent)"
+        >
+            <ng-content select=".modal-body"></ng-content>
+        </div>
+        <div #modalFooter *ngIf="hasFooter" class="border-t border-highlight bg-white p-4">
+            <ng-content select=".modal-footer"></ng-content>
+        </div>
+    </div>
+</div>

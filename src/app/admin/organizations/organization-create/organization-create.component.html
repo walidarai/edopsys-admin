@@ -1,0 +1,195 @@
+<form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
+    <app-drawer
+        *ngIf="isDrawerVisible"
+        [isVisible]="isDrawerVisible"
+        (handleClose)="closeDrawer()"
+    >
+        <div drawerHeader class="drawer-header">
+            <h2>Add New Organization</h2>
+        </div>
+
+        <div drawerBody class="drawer-body grid grid-cols-2 gap-6">
+            <!-- Company Name -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-2">
+                    Company Name <span class="text-red-500">*</span>
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                    type="text"
+                    formControlName="companyName"
+                />
+                <p
+                    *ngIf="
+                        form['companyName'].touched &&
+                        form['companyName'].invalid
+                    "
+                    class="text-red-500 text-xs"
+                >
+                    Company Name is required.
+                </p>
+            </div>
+
+            <!-- Name -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-2">
+                    Name <span class="text-red-500">*</span>
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                    type="text"
+                    formControlName="name"
+                />
+                <p
+                    *ngIf="form['name'].touched && form['name'].invalid"
+                    class="text-red-500 text-xs"
+                >
+                    Name is required.
+                </p>
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-2">
+                    Email <span class="text-red-500">*</span>
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                    type="email"
+                    formControlName="email"
+                />
+                <p
+                    *ngIf="form['email'].touched && form['email'].errors?.['required']"
+                    class="text-red-500 text-xs"
+                >
+                    Email is required.
+                </p>
+                <p
+                    *ngIf="form['email'].touched && form['email'].errors?.['email']"
+                    class="text-red-500 text-xs"
+                >
+                    Invalid email address.
+                </p>
+            </div>
+
+            <!-- Phone Number -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-2">
+                    Phone Number <span class="text-red-500">*</span>
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                    type="number"
+                    formControlName="phone"
+                />
+                <p
+                    *ngIf="form['phone'].touched && form['phone'].errors?.['required']"
+                    class="text-red-500 text-xs"
+                >
+                    Phone Number is required.
+                </p>
+                <p
+                    *ngIf="form['phone'].touched && form['phone'].errors?.['pattern']"
+                    class="text-red-500 text-xs"
+                >
+                    Only numbers allowed.
+                </p>
+            </div>
+
+            <!-- Contract Duration -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-2">
+                    Contract Duration <span class="text-red-500">*</span>
+                </label>
+                <select
+                    class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
+                    formControlName="contractDuration"
+                >
+                    <option value="">Select duration</option>
+                    <option *ngFor="let d of durations" [value]="d">
+                        {{ d }}
+                    </option>
+                </select>
+                <p
+                    *ngIf="
+                        form['contractDuration'].touched &&
+                        form['contractDuration'].invalid
+                    "
+                    class="text-red-500 text-xs"
+                >
+                    Contract Duration is required.
+                </p>
+            </div>
+
+            <!-- Product Radio -->
+            <div>
+                <span class="block text-gray-700 font-bold mb-2">
+                    Product <span class="text-red-500">*</span>
+                </span>
+                <div class="flex gap-4">
+                    <label
+                        *ngFor="let prod of products"
+                        class="inline-flex items-center"
+                    >
+                        <input
+                            type="radio"
+                            [value]="prod"
+                            formControlName="product"
+                            class="form-radio text-indigo-600"
+                        />
+                        <span class="ml-2">{{ prod }}</span>
+                    </label>
+                </div>
+                <p
+                    *ngIf="form['product'].touched && form['product'].invalid"
+                    class="text-red-500 text-xs"
+                >
+                    Product is required.
+                </p>
+            </div>
+
+            <!-- Organization Type Radio -->
+            <div>
+                <span class="block text-gray-700 font-bold mb-2">
+                    Organization Type <span class="text-red-500">*</span>
+                </span>
+                <div class="flex gap-4">
+                    <label
+                        *ngFor="let orgType of orgType"
+                        class="inline-flex items-center"
+                    >
+                        <input
+                            type="radio"
+                            [value]="orgType"
+                            formControlName="orgType"
+                            class="form-radio text-indigo-600"
+                        />
+                        <span class="ml-2">{{ orgType }}</span>
+                    </label>
+                </div>
+                <p
+                    *ngIf="form['orgType'].touched && form['orgType'].invalid"
+                    class="text-red-500 text-xs"
+                >
+                    Organization Type is required.
+                </p>
+            </div>
+        </div>
+
+        <div drawerFooter class="flex items-center justify-center gap-4">
+            <button
+                type="button"
+                (click)="closeDrawer()"
+                class="active:ring-1 active:shadow disabled:cursor-not-allowed hover:ring hover:shadow-lg px-2 py-1 rounded-md sm:px-4 sm:py-2 transition bg-transparent hover:ring-neutral hovey:ring-2 text-primary"
+            >
+                Cancel
+            </button>
+            <button
+                type="submit"
+                class="active:ring-1 active:shadow disabled:cursor-not-allowed hover:ring hover:shadow-lg px-2 py-1 rounded-md sm:px-4 sm:py-2 transition bg-primary hover:ring-primary text-white"
+            >
+                Save
+            </button>
+        </div>
+    </app-drawer>
+</form>

@@ -1,0 +1,20 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="flex items-center gap-4 justify-between">
+    <app-sub-tabs [tabs]="tabs"></app-sub-tabs>
+    <button
+        type="button"
+        class="flex items-center gap-2 px-3 py-1.5 text-primary ring-2 ring-primary rounded-md hover:bg-primary hover:text-white"
+        (click)="toggleDrawer()"
+    >
+        <i class="fa fa-plus"></i>
+        <span class="hidden md:block">Add New Organization</span>
+        <span class="block md:hidden">Add</span>
+    </button>
+</div>
+<router-outlet></router-outlet>
+
+<app-organization-create
+    *ngIf="isDrawerVisible"
+    [isDrawerVisible]="isDrawerVisible"
+    (handleClose)="toggleDrawer()"
+></app-organization-create>

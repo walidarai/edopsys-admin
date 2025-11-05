@@ -1,0 +1,109 @@
+<app-sub-tabs [tabs]="subTabs"></app-sub-tabs>
+<div class="flex items-center gap-4 flex-wrap bg-gray-50 p-4">
+    <div class="flex gap-2 items-center px-3 py-1.5 outline rounded-md">
+        <i class="fa fa-search"></i>
+        <input
+            type="search"
+            name="search"
+            id="search"
+            class="bg-transparent outline-none"
+            placeholder="Search"
+        />
+    </div>
+    <select name="Size" id="size" class="px-3 py-1.5 outline rounded-md">
+        <option value="" selected>Size Range</option>
+        <option [value]="size" *ngFor="let size of sizeRange">
+            {{ size }}
+        </option>
+    </select>
+    <select name="orgType" id="orgType" class="px-3 py-1.5 outline rounded-md">
+        <option value="" selected>Org Type</option>
+        <option [value]="type" *ngFor="let type of orgType">
+            {{ type }}
+        </option>
+    </select>
+    <select
+        name="contract"
+        id="contract"
+        class="px-3 py-1.5 outline rounded-md"
+    >
+        <option value="" selected>Contract</option>
+        <option [value]="contract" *ngFor="let contract of contractDuration">
+            {{ contract }}
+        </option>
+    </select>
+    <select name="start" id="start" class="px-3 py-1.5 outline rounded-md">
+        <option value="" selected>Started On</option>
+        <option [value]="start" *ngFor="let start of startDate">
+            {{ start }}
+        </option>
+    </select>
+    <select name="product" id="product" class="px-3 py-1.5 outline rounded-md">
+        <option value="" selected>Product</option>
+        <option [value]="product" *ngFor="let product of product">
+            {{ product }}
+        </option>
+    </select>
+</div>
+<div class="scrollbar scroll-horizontal min-w-full overflow-x-auto">
+    <table class="w-full border-collapse text-xs sm:text-sm md:text-base">
+        <thead>
+            <tr class="bg-gray-100 text-left">
+                <th class="border px-3 py-2">#</th>
+                <th class="border px-3 py-2">Name</th>
+                <th class="border px-3 py-2">Type</th>
+                <th class="border px-3 py-2">Service Start Date</th>
+                <th class="border px-3 py-2"># of Employees</th>
+                <th class="border px-3 py-2">Product</th>
+                <th class="border px-3 py-2">Status</th>
+                <th class="border px-3 py-2"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr
+                *ngFor="let organization of organizations; index as index"
+                class="bg-white even:bg-gray-50"
+            >
+                <td class="whitespace-nowrap border px-3 py-2">
+                    {{ index + 1 }}
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    <div class="flex flex-col gap-1">
+                        <span>{{ organization.name }}</span>
+                        <span class="text-sm font-light"
+                            >({{ organization.domain }})</span
+                        >
+                    </div>
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    {{ organization.registrationType | titlecase }}
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    {{
+                        organization.serviceStartedAt
+                            | date : "dd MMM, yyyy hh:mm:a"
+                    }}
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    {{ organization.empNumber }}
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    {{ organization.product || "--" }}
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    {{ organization.status }}
+                </td>
+                <td class="whitespace-nowrap border px-3 py-2">
+                    <button
+                        type="button"
+                        class="px-3 py-1 bg-primary text-white rounded-md hover:bg-secondary"
+                        (click)="viewDetails(organization.id)"
+                    >
+                        View Details
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

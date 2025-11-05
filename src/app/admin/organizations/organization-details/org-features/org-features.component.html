@@ -1,0 +1,65 @@
+<div class="flex flex-col gap-10">
+    <div class="flex items-center gap-2">
+        <div class="relative cursor-pointer items-center">
+            <input
+                type="checkbox"
+                id="inputId"
+                class="peer sr-only"
+                [(ngModel)]="isActive"
+                (change)="handleFeatureFilter()"
+            />
+            <label
+                for="inputId"
+                class="flex h-4 w-8 cursor-pointer rounded-full bg-gray-300 after:absolute after:left-0.5 after:top-0.5 after:h-3 after:w-3 after:rounded-full after:bg-white after:transition-all peer-checked:bg-blue-500 peer-checked:after:translate-x-4 outline-none"
+            >
+                <span class="sr-only">
+                    Sort By
+                    {{ isActive ? "Inactive" : "Active" }} Features
+                </span>
+            </label>
+        </div>
+        <label for="inputId" class="cursor-pointer">
+            Sort By {{ isActive ? "Inactive" : "Active" }} Features
+        </label>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div
+            class="relative cursor-pointer flex flex-col gap-1 items-center p-4 rounded-md shadow"
+            *ngFor="let feature of filteredFeatureList"
+            (click)="handleFeatureToggle(feature)"
+            [ngClass]="
+                feature.enabled
+                    ? 'ring ring-primary bg-white hover:bg-gray-100'
+                    : 'bg-neutral/10 hover:bg-gray-50'
+            "
+        >
+            <div class="absolute top-2 left-2">
+                <ng-template
+                    [ngTemplateOutlet]="toggle"
+                    [ngTemplateOutletContext]="{ value: feature.enabled }"
+                ></ng-template>
+            </div>
+            <i [class]="feature.icon"></i>
+            <button type="button">
+                {{ feature.name }}
+            </button>
+        </div>
+    </div>
+    <button
+        type="button"
+        class="w-fit active:ring-1 active:shadow disabled:cursor-not-allowed hover:ring hover:shadow-lg px-2 py-1 rounded-md sm:px-4 sm:py-2 transition bg-primary hover:ring-primary text-white"
+    >
+        Save
+    </button>
+</div>
+
+<ng-template #toggle let-value="value">
+    <div class="relative">
+        <input type="checkbox" class="peer sr-only" [checked]="value" />
+        <label
+            for="inputId"
+            class="flex h-3.5 w-6 cursor-pointer rounded-full bg-gray-300 after:absolute after:left-0.5 after:top-0.5 after:h-2.5 after:w-2.5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-blue-500 peer-checked:after:translate-x-2.5 outline-none"
+        ></label>
+    </div>
+</ng-template>

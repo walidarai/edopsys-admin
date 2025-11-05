@@ -1,0 +1,131 @@
+<div class="flex max-h-[38rem] flex-col rounded-lg bg-white shadow-md">
+    <div
+        class="flex items-center justify-between border-b border-highlight p-3"
+    >
+        <h3 class="text-base font-semibold sm:text-lg md:text-xs lg:text-lg">
+            News and Announcement
+        </h3>
+        <button type="button" button-primary>Manage News</button>
+    </div>
+
+    <div
+        class="scrollbar mr-1.5 flex max-h-[40rem] flex-grow flex-col gap-2.5 overflow-y-auto px-3 py-5"
+    >
+        <div
+            *ngFor="let news of newsItems"
+            class="flex flex-col gap-2.5 border-b border-highlight"
+        >
+            <h4
+                class="w-full truncate text-lg text-app-highlight md:text-sm lg:text-lg"
+            >
+                {{ news.title }}
+            </h4>
+
+            <span
+                class="flex items-center gap-2 text-sm text-gray-600 md:text-xs lg:text-sm"
+            >
+                <i class="fa fa-calendar"></i> {{ news.date }}
+                <i class="fa fa-eye"></i> Views: {{ news.views }}
+            </span>
+
+            <div class="flex gap-2.5">
+                <img
+                    [src]="news.imageUrl"
+                    class="h-24 w-24 rounded object-cover"
+                />
+                <p
+                    class="line-clamp-4 text-sm text-gray-700 md:text-xs lg:text-sm"
+                >
+                    {{ news.description }}
+                </p>
+            </div>
+
+            <div
+                *ngFor="let pdf of news.pdfs"
+                class="flex items-center gap-3 rounded-md bg-blue-100 p-4"
+            >
+                <i class="fa fa-file-pdf-o text-3xl text-red-600"></i>
+                <div class="flex-1 truncate">
+                    <span class="text-base text-black md:text-sm lg:text-base">
+                        {{ pdf.title }}
+                    </span>
+                    <div
+                        class="text-xs text-gray-500 md:text-[0.7rem] lg:text-xs"
+                    >
+                        {{ pdf.pages }} Pages • PDF
+                    </div>
+                </div>
+                <span class="flex items-center gap-3">
+                    <i class="fa fa-eye cursor-pointer text-gray-600"></i>
+                    <i class="fa fa-download cursor-pointer text-gray-600"></i>
+                </span>
+            </div>
+
+            <div
+                *ngFor="let comment of news.comments; let i = index"
+                class="flex flex-col gap-2.5 border-b border-highlight"
+            >
+                <div
+                    class="relative flex items-start gap-2.5 rounded bg-white p-2"
+                >
+                    <img
+                        [src]="comment.authorImage"
+                        class="size-10 rounded-full object-cover"
+                    />
+                    <div
+                        class="relative flex w-full flex-col gap-1.5 rounded bg-gray-100 p-2.5 before:absolute before:-left-2 before:top-1 before:h-4 before:w-4 before:rotate-45 before:bg-gray-100"
+                    >
+                        <div class="flex justify-between">
+                            <div class="flex flex-col gap-1">
+                                <span
+                                    class="text-left text-app-highlight md:text-sm lg:text-base"
+                                >
+                                    {{ comment.author }}
+                                </span>
+                                <div
+                                    class="text-sm text-gray-500 md:text-xs lg:text-sm"
+                                >
+                                    on {{ comment.commentDate }}
+                                    <p
+                                        class="line-clamp-2 text-sm italic text-black md:text-xs lg:text-sm"
+                                    >
+                                        {{ comment.text }}
+                                    </p>
+                                </div>
+                            </div>
+                            <details class="relative">
+                                <summary
+                                    class="flex cursor-pointer items-center text-lg text-black"
+                                >
+                                    <i class="fa fa-bars pr-1"></i>
+                                    <i class="fa fa-chevron-down pr-1"></i>
+                                </summary>
+                                <div
+                                    class="dropdown-menu absolute bottom-full left-auto right-0 min-w-[120px] max-w-[350px] gap-2 rounded-lg bg-white shadow-lg"
+                                >
+                                    <a
+                                        class="flex items-center px-4 py-2 text-black hover:bg-gray-100"
+                                        >Edit</a
+                                    >
+                                    <a
+                                        class="flex items-center px-4 py-2 text-black hover:bg-gray-100"
+                                        >Delete</a
+                                    >
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-t border-highlight p-3 text-center">
+        <button
+            class="font-bold text-app-highlight hover:text-blue-700 md:text-sm lg:text-base"
+            routerLink="/app/news-and-announcement"
+        >
+            View All
+        </button>
+    </div>
+</div>

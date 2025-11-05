@@ -1,0 +1,161 @@
+<div
+    #sidebar
+    class="bg-app-primary pb-5 font-semibold text-white transition-all ease-in-out absolute md:static"
+    [ngClass]="[
+        sidebarCollapsed
+            ? 'w-20 h-full'
+            : 'scrollbar h-[calc(100vh-4rem)] w-[15rem] overflow-hidden overflow-y-scroll',
+        sidebarVisible ? 'translate-x-0' : '-translate-x-96 md:translate-x-0'
+    ]"
+>
+    <ul class="flex flex-col justify-center gap-2 py-3">
+        <li
+            class="pl-4 pr-2 pt-4 text-xs uppercase text-app-secondary"
+            *ngIf="!sidebarCollapsed"
+        >
+            Main Menu
+        </li>
+
+        <li *ngFor="let menuTab of sidebarTabs.mainMenu">
+            <a
+                class="cursor-pointer group relative flex hover:bg-app-accent hover:text-app-primary"
+                [class.justify-center]="sidebarCollapsed"
+                [ngClass]="{
+                    'bg-app-accent text-app-primary':
+                        activeMenu === menuTab.name,
+                    'px-2': sidebarCollapsed,
+                    'pl-4 pr-2': !sidebarCollapsed
+                }"
+                (click)="handleActiveMenu(menuTab.name)"
+            >
+                <span
+                    class="flex items-center py-2"
+                    [ngClass]="
+                        sidebarCollapsed ? 'justify-center' : 'gap-3'
+                    "
+                >
+                    <i
+                        *ngIf="menuTab.name !== 'Dashboard'"
+                        [ngClass]="menuTab.icon"
+                        class="w-6 text-center"
+                        [class.text-xl]="!sidebarCollapsed"
+                        [class.text-2xl]="sidebarCollapsed"
+                    ></i>
+
+                    <svg
+                        *ngIf="menuTab.name === 'Dashboard'"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        class="group-hover:stroke-app-primary"
+                        [ngClass]="
+                            activeMenu === menuTab.name
+                                ? 'stroke-app-primary'
+                                : 'stroke-white'
+                        "
+                        fill="none"
+                        [attr.width]="sidebarCollapsed ? '28px' : '22px'"
+                        [attr.height]="sidebarCollapsed ? '28px' : '22px'"
+                        stroke-width="0.55px"
+                        id="AILogo"
+                    >
+                        <g id="AICircleLogo">
+                            <path
+                                d="M16.08,16.64H3.57a.92.92,0,0,1-.92-.92V3.52a.93.93,0,0,1,.92-.93H16.08a.93.93,0,0,1,.92.93v12.2A.92.92,0,0,1,16.08,16.64Zm-1.35,1L18.58,6A.91.91,0,0,0,18,4.82L6.1,1.05a1,1,0,0,0-1.18.59L1.07,13.27a.91.91,0,0,0,.61,1.15l11.87,3.76A.94.94,0,0,0,14.73,17.6ZM12,18.68,19.3,8.77a.91.91,0,0,0-.21-1.28L9,.35a1,1,0,0,0-1.31.2L.35,10.47a.89.89,0,0,0,.21,1.27l10.12,7.15A1,1,0,0,0,12,18.68Zm-3,.21,10.14-7.15a.89.89,0,0,0,.21-1.27L12,.56A.94.94,0,0,0,10.7.35L.56,7.49A.91.91,0,0,0,.35,8.77l7.3,9.91A1,1,0,0,0,9,18.89Zm-2.86-.71L18,14.42a.92.92,0,0,0,.61-1.15L14.74,1.65a.94.94,0,0,0-1.18-.59L1.68,4.82A.91.91,0,0,0,1.07,6L4.91,17.59A1,1,0,0,0,6.09,18.18Z"
+                            />
+                        </g>
+                    </svg>
+
+                    <span
+                        [ngClass]="{
+                            'hidden group-hover:block w-max z-50 bg-white text-app-primary absolute top-1/2 left-full -translate-y-1/2 px-5 py-3 rounded-r-md shadow-md':
+                                sidebarCollapsed,
+                        }"
+                    >
+                        {{ menuTab.name }}
+                    </span>
+                </span>
+            </a>
+        </li>
+
+        <div class="mt-2 h-[1px] bg-[#c1b9b978]"></div>
+
+        <li
+            class="pl-4 pr-2 pt-4 text-xs uppercase text-app-secondary"
+            *ngIf="!sidebarCollapsed"
+        >
+            System Management
+        </li>
+
+        <li *ngFor="let systemTab of sidebarTabs.systemManagement">
+            <div
+                class="relative flex cursor-pointer hover:bg-app-accent hover:text-app-primary"
+            >
+                <details
+                    class="group flex-1 py-2"
+                    [ngClass]="sidebarCollapsed ? 'px-2' : 'pl-4 pr-2'"
+                >
+                    <summary
+                        class="flex items-center"
+                        [ngClass]="
+                            sidebarCollapsed
+                                ? systemTab?.childrens
+                                    ? 'justify-center gap-3'
+                                    : 'justify-center'
+                                : 'justify-between'
+                        "
+                    >
+                        <a
+                            class="flex items-center"
+                            [class.gap-3]="!sidebarCollapsed"
+                        >
+                            <i
+                                [ngClass]="systemTab.icon"
+                                class="w-5 text-center"
+                                [class.text-xl]="!sidebarCollapsed"
+                                [class.text-2xl]="sidebarCollapsed"
+                            ></i>
+
+                            <span
+                                [ngClass]="{
+                                    'hidden group-hover:block w-max z-50 bg-white text-app-primary absolute top-1/2 left-full -translate-y-1/2 px-5 py-3 rounded-r-md shadow-md':
+                                        sidebarCollapsed,
+                                }"
+                            >
+                                {{ systemTab.name }}
+                            </span>
+                        </a>
+
+                        <i
+                            *ngIf="systemTab?.childrens"
+                            class="fa"
+                            [ngClass]="
+                                sidebarCollapsed
+                                    ? 'fa-chevron-right'
+                                    : 'fa-chevron-down duration-200 group-open:rotate-180'
+                            "
+                        ></i>
+                    </summary>
+
+                    <ul
+                        class="py-4"
+                        *ngIf="systemTab.childrens"
+                        [ngClass]="{
+                            'hidden group-hover:block w-max z-50 bg-app-accent text-app-primary absolute top-1/2 left-full -translate-y-1/2 px-5 py-3 rounded-r-md shadow-md':
+                                sidebarCollapsed,
+                        }"
+                    >
+                        <li *ngFor="let child of systemTab.childrens">
+                            <a
+                                class="cursor-pointer line relative block py-2 pl-4 hover:font-bold"
+                            >
+                                <span class="bullet pl-4">
+                                    {{ child.name }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </div>
+        </li>
+    </ul>
+</div>

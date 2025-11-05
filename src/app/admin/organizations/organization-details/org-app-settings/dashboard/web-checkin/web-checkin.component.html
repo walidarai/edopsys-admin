@@ -1,0 +1,41 @@
+<div
+    class="flex flex-col justify-between gap-4 rounded-md bg-app-primary/95 p-4 pb-6 text-white shadow-md"
+>
+    <div class="flex items-center justify-between gap-1 sm:mb-0">
+        <div class="flex items-center gap-2 font-medium">
+            <span>Time Today -</span>
+            <span class="text-sm">{{ currentDate }}</span>
+        </div>
+        <a class="cursor-pointer bg-transparent text-xs font-bold sm:text-sm">
+            View All
+        </a>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+        <div class="flex flex-col items-start">
+            <span class="text-xs sm:text-sm">Current Time</span>
+            <div class="flex items-baseline gap-0.5">
+                <span class="text-3xl font-bold sm:text-4xl">
+                    {{ currentTime.split(":")[0] }}:{{
+                        currentTime.split(":")[1]
+                    }}
+                </span>
+                <span class="text-xs sm:text-sm">
+                    : {{ currentTime.split(":")[2] }} {{ ampm }}
+                </span>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-wrap items-center justify-center gap-2 text-xs text-black sm:text-sm"
+        >
+            <button type="button" class="rounded bg-white px-2 py-1">
+                Web Clock-In
+            </button>
+            <select class="cursor-pointer rounded bg-white px-2 py-1">
+                <option value="" disabled selected>Other</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </select>
+        </div>
+    </div>
+</div>
